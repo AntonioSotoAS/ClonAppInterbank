@@ -1,148 +1,78 @@
 package com.antonio.appinterbank
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class HomeActivity : AppCompatActivity() {
+    private lateinit var usuario: Usuario
+    private val handler = Handler()
+    private val logoutRunnable = Runnable {
+        // Redireccionar al usuario a la pantalla de inicio de sesión
+        val intent = Intent(this@HomeActivity, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        val productosList = listOf(
-            Producto(
-                "1",
-                R.mipmap.cuadrado_interbank,
-                "Cuenta de Ahorros",
-                "$500.00",
-                "Cuenta Ahorro",
-                listOf(
-                    Movimiento("1", "Depósito", "2022-07-01", "Transferencia"),
-                    Movimiento("2", "Retiro", "2022-07-02", "Efectivo"),
-                    Movimiento("3", "Pago", "2022-07-03", "Tarjeta de Crédito")
-                )
-            ),
-            Producto(
-                "2",
-                R.mipmap.cuadrado_interbank,
-                "Tarjeta de Crédito",
-                "$1000.00",
-                "Tarjeta de Crédito",
-                listOf(
-                    Movimiento("4", "Compra", "2022-07-04", "Comercio Electrónico"),
-                    Movimiento("5", "Pago", "2022-07-05", "Transferencia"),
-                    Movimiento("6", "Cargo", "2022-07-06", "Comercio Local")
-                )
-            ),
-            Producto(
-                "3",
-                R.mipmap.cuadrado_interbank,
-                "Cuenta Corriente",
-                "$2000.00",
-                "Cuenta Corriente",
-                listOf(
-                    Movimiento("7", "Transferencia", "2022-07-07", "Transferencia"),
-                    Movimiento("8", "Pago", "2022-07-08", "Tarjeta de Crédito"),
-                    Movimiento("9", "Depósito", "2022-07-09", "Transferencia")
-                )
-            ),
-            Producto(
-                "4",
-                R.mipmap.cuadrado_interbank,
-                "Cuenta de Ahorros USD",
-                "$1000.00",
-                "Cuenta Ahorro",
-                listOf(
-                    Movimiento("10", "Depósito", "2022-07-10", "Transferencia"),
-                    Movimiento("11", "Retiro", "2022-07-11", "Efectivo"),
-                    Movimiento("12", "Pago", "2022-07-12", "Tarjeta de Crédito")
-                )
-            ),
-            Producto(
-                "4",
-                R.mipmap.cuadrado_interbank,
-                "Cuenta de Ahorros USD",
-                "$1000.00",
-                "Cuenta Ahorro",
-                listOf(
-                    Movimiento("10", "Depósito", "2022-07-10", "Transferencia"),
-                    Movimiento("11", "Retiro", "2022-07-11", "Efectivo"),
-                    Movimiento("12", "Pago", "2022-07-12", "Tarjeta de Crédito")
-                )
-            ),
-            Producto(
-                "4",
-                R.mipmap.cuadrado_interbank,
-                "Cuenta de Ahorros USD",
-                "$1000.00",
-                "Cuenta Ahorro",
-                listOf(
-                    Movimiento("10", "Depósito", "2022-07-10", "Transferencia"),
-                    Movimiento("11", "Retiro", "2022-07-11", "Efectivo"),
-                    Movimiento("12", "Pago", "2022-07-12", "Tarjeta de Crédito")
-                )
-            ),
-            Producto(
-                "4",
-                R.mipmap.cuadrado_interbank,
-                "Cuenta de Ahorros USD",
-                "$1000.00",
-                "Cuenta Ahorro",
-                listOf(
-                    Movimiento("10", "Depósito", "2022-07-10", "Transferencia"),
-                    Movimiento("11", "Retiro", "2022-07-11", "Efectivo"),
-                    Movimiento("12", "Pago", "2022-07-12", "Tarjeta de Crédito")
-                )
-            ),
-            Producto(
-                "4",
-                R.mipmap.cuadrado_interbank,
-                "Cuenta de Ahorros USD",
-                "$1000.00",
-                "Cuenta Ahorro",
-                listOf(
-                    Movimiento("10", "Depósito", "2022-07-10", "Transferencia"),
-                    Movimiento("11", "Retiro", "2022-07-11", "Efectivo"),
-                    Movimiento("12", "Pago", "2022-07-12", "Tarjeta de Crédito")
-                )
-            ),
-            Producto(
-                "4",
-                R.mipmap.cuadrado_interbank,
-                "Cuenta de Ahorros USD",
-                "$1000.00",
-                "Cuenta Ahorro",
-                listOf(
-                    Movimiento("10", "Depósito", "2022-07-10", "Transferencia"),
-                    Movimiento("11", "Retiro", "2022-07-11", "Efectivo"),
-                    Movimiento("12", "Pago", "2022-07-12", "Tarjeta de Crédito")
-                )
-            ),
-            Producto(
-                "4",
-                R.mipmap.cuadrado_interbank,
-                "Cuenta de Ahorros USD",
-                "$1000.00",
-                "Cuenta Ahorro",
-                listOf(
-                    Movimiento("10", "Depósito", "2022-07-10", "Transferencia"),
-                    Movimiento("11", "Retiro", "2022-07-11", "Efectivo"),
-                    Movimiento("12", "Pago", "2022-07-12", "Tarjeta de Crédito")
-                )
-            )
-        )
+        // Obtener el objeto Usuario del Intent
+        usuario = intent.getParcelableExtra("usuario") ?: Usuario("", "", "", emptyList())
 
+        setupRecyclerView()
 
+        var isSaldoOculto = false
 
+        val txtAdditionalInfo = findViewById<TextView>(R.id.txtAdditionalInfo)
+        txtAdditionalInfo.setOnClickListener {
+            isSaldoOculto = !isSaldoOculto
+            if (isSaldoOculto) {
+                // Ocultar el saldo
+                txtAdditionalInfo.text = "Ver saldo"
+                // Actualizar la lista de productos con montos ocultos
+                val productosListOcultarSaldo = usuario.productos.map { producto ->
+                    producto.copy(saldo = "*******")
+                }
+                updateRecyclerView(productosListOcultarSaldo)
+            } else {
+                // Mostrar el saldo
+                txtAdditionalInfo.text = "Ocultar saldo"
+                // Actualizar la lista de productos con montos visibles
+                updateRecyclerView(usuario.productos)
+            }
+        }
 
+        // Iniciar el temporizador de sesión
+        startSessionTimer()
+    }
 
-
+    private fun setupRecyclerView() {
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewPokemons)
-        val adapter = ProductosAdapter(productosList)
+        val adapter = ProductosAdapter(usuario.productos)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+    }
 
+    private fun updateRecyclerView(productosList: List<Producto>) {
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewPokemons)
+        val adapter = recyclerView.adapter as? ProductosAdapter
+        adapter?.updateProductos(productosList)
+    }
 
+    private fun startSessionTimer() {
+        val intent = Intent(this@HomeActivity, SessionTimerService::class.java)
+        startService(intent)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        // Detener el temporizador de sesión cuando la actividad se detiene
+        handler.removeCallbacks(logoutRunnable)
     }
 }

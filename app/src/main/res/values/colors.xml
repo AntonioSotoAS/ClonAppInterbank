@@ -61,4 +61,7 @@
     <color name="md_theme_dark_surfaceTint">#47E26D</color>
     <color name="md_theme_dark_outlineVariant">#424940</color>
     <color name="md_theme_dark_scrim">#000000</color>
+    <color name="egreso">#E32C3D</color>
+    <color name="ingreso">#47E26D</color>
+
 </resources>

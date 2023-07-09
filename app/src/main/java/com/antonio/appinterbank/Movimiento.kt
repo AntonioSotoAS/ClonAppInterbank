@@ -7,9 +7,11 @@ data class Movimiento(
     val id: String,
     val tipoMovimiento: String,
     val fecha: String,
-    val tipoTransferencia: String
+    val montoMovimiento: String,
+    val tipo: String
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
@@ -20,7 +22,8 @@ data class Movimiento(
         parcel.writeString(id)
         parcel.writeString(tipoMovimiento)
         parcel.writeString(fecha)
-        parcel.writeString(tipoTransferencia)
+        parcel.writeString(montoMovimiento)
+        parcel.writeString(tipo)
     }
 
     override fun describeContents(): Int {

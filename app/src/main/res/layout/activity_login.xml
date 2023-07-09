@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".LoginActivity">
 
     <ImageView
@@ -23,6 +24,8 @@
         app:layout_constraintTop_toBottomOf="@+id/imgLogo"
         />
 
+    <!-- ... -->
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edt_numero_tarjeta"
         android:layout_width="320dp"
@@ -32,7 +35,7 @@
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:textColorHint="@color/md_theme_dark_outline"
         android:textColor="@color/md_theme_light_onTertiaryContainer"
-        android:hint="Numero de Trajeta"
+        android:hint="Numero de Tarjeta"
         app:layout_constraintTop_toBottomOf="@+id/imgLogoCuadrado"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -40,7 +43,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
+            android:inputType="number"
             android:textSize="18sp"
             />
 
@@ -63,7 +66,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
+            android:inputType="number"
             android:textSize="18sp"
             />
 
@@ -86,11 +89,14 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
+            android:inputType="textPassword"
             android:textSize="18sp"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- ... -->
+
 
 
 
@@ -121,7 +127,7 @@
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSubmit"
+        android:id="@+id/btnLogin"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
@@ -137,15 +143,15 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        app:layout_constraintTop_toTopOf="@id/btnSubmit"
-        app:layout_constraintBottom_toTopOf="@id/btnSubmit" />
+        app:layout_constraintTop_toTopOf="@id/btnLogin"
+        app:layout_constraintBottom_toTopOf="@id/btnLogin" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/btnSubmit"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 

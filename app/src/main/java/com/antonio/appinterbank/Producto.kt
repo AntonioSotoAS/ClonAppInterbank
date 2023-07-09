@@ -7,13 +7,15 @@ data class Producto(
     val id: String,
     val imagen: Int,
     val tipoProducto: String,
-    val saldo: String,
+    var saldo: String,
     val tipoCuenta: String,
+    val numeroCuenta: String,
     val movimientos: List<Movimiento>
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
         parcel.readInt(),
+        parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
@@ -26,11 +28,16 @@ data class Producto(
         parcel.writeString(tipoProducto)
         parcel.writeString(saldo)
         parcel.writeString(tipoCuenta)
+        parcel.writeString(numeroCuenta)
         parcel.writeTypedList(movimientos)
     }
 
     override fun describeContents(): Int {
         return 0
+    }
+
+    fun actualizarSaldo(saldo: String) {
+        this.saldo = saldo
     }
 
     companion object CREATOR : Parcelable.Creator<Producto> {
