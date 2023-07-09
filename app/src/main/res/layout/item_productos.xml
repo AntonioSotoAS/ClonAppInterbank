@@ -12,7 +12,7 @@
 
         <!-- Imagen -->
         <ImageView
-            android:id="@+id/imgNews"
+            android:id="@+id/imgProducto"
             android:layout_width="100dp"
             android:layout_height="80dp"
             android:src="@drawable/ic_launcher_background"
