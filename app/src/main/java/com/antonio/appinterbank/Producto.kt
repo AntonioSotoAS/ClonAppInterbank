@@ -22,6 +22,7 @@ data class Producto(
         parcel.createTypedArrayList(Movimiento)!!
     )
 
+
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
         parcel.writeInt(imagen)

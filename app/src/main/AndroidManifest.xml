@@ -12,10 +12,11 @@
         android:theme="@style/Theme.AppInterbank"
         tools:targetApi="31">
 
-        <service android:name=".SessionTimerService" />
+        <service android:name="SessionTimerService" />
+
 
         <activity
-            android:name=".CuentaActivity"
+            android:name="CuentaActivity"
             android:exported="false" />
 
         <activity
@@ -24,11 +25,7 @@
 
 
         <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-
-        <activity
-                android:name=".LoginActivity"
+                android:name="LoginActivity"
                 android:exported="true" >
 
             <intent-filter>

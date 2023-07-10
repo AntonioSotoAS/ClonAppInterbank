@@ -7,18 +7,28 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+
 class ProductosAdapter(private var productosList: List<Producto>) : RecyclerView.Adapter<ProductosAdapter.ProductosViewHolder>() {
+    private var isSaldoOculto = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductosViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_productos, parent, false)
         return ProductosViewHolder(view)
     }
 
+    fun setSaldoOculto(saldoOculto: Boolean) {
+        isSaldoOculto = saldoOculto
+    }
+
     override fun onBindViewHolder(holder: ProductosViewHolder, position: Int) {
         val producto = productosList[position]
         holder.imgProducto.setImageResource(producto.imagen)
         holder.txtTipoProducto.text = producto.tipoProducto
-        holder.txtMonto.text = producto.saldo
+        if (isSaldoOculto) {
+            holder.txtMonto.text = "*******"
+        } else {
+            holder.txtMonto.text = producto.saldo
+        }
         holder.txtTipoCuenta.text = producto.tipoCuenta
 
         holder.itemView.setOnClickListener {
@@ -44,5 +54,7 @@ class ProductosAdapter(private var productosList: List<Producto>) : RecyclerView
         notifyDataSetChanged()
     }
 
+    fun getProductosList(): List<Producto> {
+        return productosList
+    }
 }
-
